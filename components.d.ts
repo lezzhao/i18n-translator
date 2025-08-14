@@ -8,11 +8,17 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    FileContent: typeof import('./src/components/FileContent.vue')['default']
+    FileContentPreview: typeof import('./src/components/FileContentPreview.vue')['default']
+    FileList: typeof import('./src/components/FileList.vue')['default']
     FileUpload: typeof import('./src/components/FileUpload.vue')['default']
+    FileUploadArea: typeof import('./src/components/FileUploadArea.vue')['default']
+    LanguageSelect: typeof import('./src/components/LanguageSelect.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheCounter: typeof import('./src/components/TheCounter.vue')['default']
     TheFooter: typeof import('./src/components/TheFooter.vue')['default']
     TheInput: typeof import('./src/components/TheInput.vue')['default']
+    Upload: typeof import('./src/components/Upload.vue')['default']
   }
 }
