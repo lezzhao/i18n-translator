@@ -1,3 +1,6 @@
+import yaml from 'js-yaml'
+import { translate, translateText } from './translate'
+
 export interface FileItem {
   file: File
   id: string
@@ -69,4 +72,37 @@ export function downloadFile(file: File) {
   link.click()
   document.body.removeChild(link)
   URL.revokeObjectURL(url)
+}
+
+// 转换yaml为json
+export async function convertYamlToJson(content: string): Promise<string> {
+  try {
+    const json = yaml.load(content)
+    const res = JSON.stringify(json, null, 2)
+    return res
+  }
+  catch (error) {
+    console.error(error)
+    return content
+  }
+}
+
+// 解析文件内容
+export async function getFileContent(file: File) {
+  try {
+    const content = await file.text()
+    // 根据文件类型进行格式化
+    if (file.name.endsWith('.json')) {
+      return content
+    }
+    else if (file.name.endsWith('.yml') || file.name.endsWith('.yaml')) {
+      return convertYamlToJson(content) // YAML 保持原格式
+    }
+
+    return content // JS/TS 文件保持原格式
+  }
+  catch (error) {
+    console.error('解析文件内容失败:', error)
+    return '无法读取文件内容'
+  }
 }

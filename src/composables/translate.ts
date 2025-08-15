@@ -5,7 +5,7 @@ async function createTranslator(options?: {
   source: string
   target: string
 }) {
-  const { source = 'en', target = 'zh' } = options || {}
+  const { source = 'zh', target = 'en' } = options || {}
 
   const key = `${source}-${target}`
 
@@ -32,4 +32,23 @@ export async function translate(text: string, options?: {
   const translated = await translator.translate(text)
   translatedMap.set(text, translated)
   return translated
+}
+
+const regex = /['"]?(\S*?)['"]?\s*:\s*['"](.*?)['"]/g
+export async function translateText(text: string, options?: {
+  source: string
+  target: string
+}) {
+  const matches = text.matchAll(regex)
+  const translatedMap = new Map<string, string>()
+  for (const match of matches) {
+    const [, p1, p2] = match
+    if (!translatedMap.has(`${p1}-${p2}`)) {
+      const translated = await translate(p2, options)
+      translatedMap.set(`${p1}-${p2}`, translated)
+    }
+  }
+  return text.replaceAll(regex, (_, p1, p2) => {
+    return `"${p1}": "${translatedMap.get(`${p1}-${p2}`)}"`
+  })
 }

@@ -1,23 +1,8 @@
 <script setup lang="ts">
-interface Props {
-  content: string
-  fileName: string
-  fileSize: string
-  fileType: string
-}
+import { formatFileSize } from '~/composables/file'
+import { useTranslateStore } from '~/stores/translate'
 
-defineProps<Props>()
-
-// 渲染JSON内容
-function renderJsonContent(content: string): string {
-  try {
-    const parsed = JSON.parse(content)
-    return JSON.stringify(parsed, null, 2)
-  }
-  catch {
-    return content
-  }
-}
+const translateStore = useTranslateStore()
 
 // 获取文件类型标签样式
 function getFileTypeTag(fileName: string): { text: string, class: string } {
@@ -46,14 +31,14 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
               <div class="rounded-full bg-yellow-400 h-2 w-2 shadow-sm" />
               <div class="rounded-full bg-green-400 h-2 w-2 shadow-sm" />
             </div>
-            <span class="text-xs text-gray-600 font-medium font-mono">{{ fileName }}</span>
+            <span class="text-xs text-gray-600 font-medium font-mono">{{ translateStore.currentFile?.name }}</span>
           </div>
           <div class="flex items-center space-x-2">
             <span class="text-xs text-gray-500 px-1.5 py-0.5 border border-gray-200 rounded-md bg-white">
-              {{ getFileTypeTag(fileName).text }}
+              {{ getFileTypeTag(translateStore.currentFile?.name || '').text }}
             </span>
             <span class="text-xs text-gray-400 px-1.5 py-0.5 border border-gray-200 rounded-md bg-white">
-              {{ fileSize }}
+              {{ formatFileSize(translateStore.currentFile?.file.size || 0) }}
             </span>
           </div>
         </div>
@@ -65,7 +50,23 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
             <pre class="text-xs text-slate-800 font-mono whitespace-pre-wrap relative overflow-x-auto selection:text-blue-900 selection:bg-blue-200">
               <code class="block">
                 <span
-                  v-for="(line, lineIndex) in renderJsonContent(content).split('\n')"
+                  v-for="(line, lineIndex) in translateStore.currentFile?.content.split('\n')"
+                  :key="lineIndex"
+                  class="leading-4 h-4 block"
+                  :class="{ 'opacity-60': line.trim() === '' }"
+                >
+                  {{ line }}
+                </span>
+              </code>
+            </pre>
+          </div>
+        </div><div class="bg-gradient-to-br max-h-96 overflow-auto from-slate-50 to-blue-50 via-white">
+          <div class="relative">
+            <!-- 代码内容 -->
+            <pre class="text-xs text-slate-800 font-mono whitespace-pre-wrap relative overflow-x-auto selection:text-blue-900 selection:bg-blue-200">
+              <code class="block">
+                <span
+                  v-for="(line, lineIndex) in translateStore.currentFile?.translatedContent.split('\n')"
                   :key="lineIndex"
                   class="leading-4 h-4 block"
                   :class="{ 'opacity-60': line.trim() === '' }"
@@ -93,7 +94,7 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
           <div class="bg-gray-200 h-2.5 w-px" />
           <div class="flex items-center space-x-1">
             <div i-carbon-document text-xs text-purple-500 />
-            <span>{{ fileType || '文本文件' }}</span>
+            <span>{{ getFileTypeTag(translateStore.currentFile?.name || '').text }}</span>
           </div>
         </div>
       </div>

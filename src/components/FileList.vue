@@ -1,52 +1,38 @@
 <script setup lang="ts">
+import type { FileItem } from '~/types'
 import { downloadFile, formatFileSize, getFileIcon } from '~/composables/file'
 import { useTranslateStore } from '~/stores/translate'
 
 const translateStore = useTranslateStore()
 
-// 当前展开的文件ID
-const expandedFileId = ref<string>('')
-const expandedFileContent = ref<string>('')
-
-// 解析文件内容
-async function parseFileContent(file: File): Promise<string> {
-  try {
-    const content = await file.text()
-
-    // 根据文件类型进行格式化
-    if (file.name.endsWith('.json')) {
-      try {
-        const parsed = JSON.parse(content)
-        return JSON.stringify(parsed, null, 2)
-      }
-      catch {
-        return content
-      }
-    }
-    else if (file.name.endsWith('.yml') || file.name.endsWith('.yaml')) {
-      return content // YAML 保持原格式
-    }
-    else {
-      return content // JS/TS 文件保持原格式
-    }
-  }
-  catch (error) {
-    console.error('解析文件内容失败:', error)
-    return '无法读取文件内容'
-  }
+function isExpanded(id: string) {
+  return translateStore.fileInfo.expandedFile.id === id
 }
 
 // 切换文件内容展开状态
-async function toggleFileContent(fileItem: any) {
-  if (expandedFileId.value === fileItem.id) {
+async function toggleFileContent(fileItem: FileItem) {
+  if (isExpanded(fileItem.id)) {
     // 如果当前文件已展开，则收起
-    expandedFileId.value = ''
-    expandedFileContent.value = ''
+    translateStore.updateFileInfo({
+      key: 'expandedFile',
+      value: {
+        id: '',
+        content: '',
+      },
+    })
   }
   else {
     // 如果点击其他文件，则展开该文件
-    expandedFileId.value = fileItem.id
-    expandedFileContent.value = await parseFileContent(fileItem.file)
+    if (fileItem.translatedContent) {
+      translateStore.updateFileInfo({
+        key: 'expandedFile',
+        value: {
+          id: fileItem.id,
+          content: fileItem.content,
+          translatedContent: fileItem.translatedContent,
+        },
+      })
+    }
   }
 }
 
@@ -119,18 +105,18 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
               <div class="flex flex-shrink-0 items-center space-x-2">
                 <button
                   class="text-sm px-3 py-2 rounded-lg flex transition-colors items-center space-x-1"
-                  :class="expandedFileId === fileItem.id
+                  :class="isExpanded(fileItem.id)
                     ? 'text-blue-700 bg-blue-200 hover:bg-blue-300'
                     : 'text-blue-600 bg-blue-100 hover:bg-blue-200'"
                   @click="() => toggleFileContent(fileItem)"
                 >
                   <div
                     class="transition-transform duration-200"
-                    :class="{ 'rotate-180': expandedFileId === fileItem.id }"
+                    :class="{ 'rotate-180': isExpanded(fileItem.id) }"
                   >
                     <div i-carbon-chevron-down text-sm />
                   </div>
-                  <span>{{ expandedFileId === fileItem.id ? '收起' : '查看' }}</span>
+                  <span>{{ isExpanded(fileItem.id) ? '收起' : '查看' }}</span>
                 </button>
                 <button
                   class="text-sm text-green-600 px-3 py-2 rounded-lg bg-green-100 flex transition-colors items-center space-x-1 hover:bg-green-200"
@@ -159,7 +145,7 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
               leave-to-class="opacity-0 max-h-0"
             >
               <div
-                v-if="expandedFileId === fileItem.id"
+                v-if="isExpanded(fileItem.id)"
                 class="bg-gradient-to-r border-t border-gray-200 from-blue-50 to-indigo-50"
               >
                 <div class="p-6">
@@ -191,7 +177,7 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
 
                   <!-- 使用文件内容预览组件 -->
                   <FileContent
-                    :content="expandedFileContent"
+                    :content="translateStore.fileInfo.expandedFile.content"
                     :file-name="fileItem.file.name"
                     :file-size="formatFileSize(fileItem.file.size)"
                     :file-type="fileItem.file.type || '未知类型'"

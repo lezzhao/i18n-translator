@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { translateText } from '~/composables'
+import { getFileContent } from '~/composables/file'
 import { useTranslateStore } from '~/stores/translate'
 
 // 文件输入引用
@@ -23,6 +25,26 @@ function handleDragLeave(e: DragEvent) {
   })
 }
 
+function addFiles(files?: FileList | null) {
+  if (!files) {
+    return
+  }
+  const fileArray = Array.from(files)
+  const newFiles = fileArray.filter(file => translateStore.hasSameFile(file) === -1)
+  translateStore.addFiles(newFiles)
+  for (const file of newFiles) {
+    getFileContent(file).then((content) => {
+      const i = translateStore.hasSameFile(file)
+      if (i !== -1) {
+        translateStore.fileList[i].content = content
+        translateText(content).then((translated) => {
+          translateStore.fileList[i].translatedContent = translated
+        })
+      }
+    })
+  }
+}
+
 function handleDrop(e: DragEvent) {
   e.preventDefault()
   translateStore.updateFileInfo({
@@ -30,20 +52,13 @@ function handleDrop(e: DragEvent) {
     value: false,
   })
 
-  const files = e.dataTransfer?.files
-  if (files) {
-    const fileArray = Array.from(files)
-    translateStore.addFiles(fileArray)
-  }
+  addFiles(e.dataTransfer?.files)
 }
 
 // 处理文件选择
 function handleFileSelect(event: Event) {
   const target = event.target as HTMLInputElement
-  if (target.files) {
-    const files = Array.from(target.files)
-    translateStore.addFiles(files)
-  }
+  addFiles(target.files)
 }
 </script>
 
@@ -71,7 +86,7 @@ function handleFileSelect(event: Event) {
     <!-- 拖拽上传区域 -->
     <div
       class="drag-area p-8 border-2 border-gray-300 rounded-lg border-dashed bg-gray-50 h-48 w-full transition-all duration-300"
-      :class="{ 'border-blue-500 bg-blue-50': isDragging }"
+      :class="{ 'border-blue-500 bg-blue-50': translateStore.fileInfo.existDraggedFile }"
       @dragover="handleDragOver"
       @dragleave="handleDragLeave"
       @drop="handleDrop"

@@ -3,9 +3,15 @@ export interface FileItem {
   id: string
   name: string
   uploadTime: Date
+  content: string
+  translatedContent: string
 }
 
 export interface FileInfo {
-  expandedFile: string
+  expandedFile: {
+    id: string
+    content: string
+    translatedContent: string
+  }
   existDraggedFile: boolean
 }

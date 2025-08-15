@@ -1,41 +1,49 @@
 import type { FileInfo, FileItem } from '~/types'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
-function hasSameFile(file: File, fileList: FileItem[]) {
-  return fileList.findIndex(f => f.file.name === file.name)
+function createFileItem(file: File) {
+  return {
+    file,
+    id: crypto.randomUUID(),
+    name: file.name,
+    uploadTime: new Date(),
+    content: '',
+    translatedContent: '',
+  }
 }
 
 export const useTranslateStore = defineStore('translate', () => {
   const fileInfo = ref<FileInfo>({
-    expandedFile: '',
+    expandedFile: {
+      id: '',
+      content: '',
+      translatedContent: '',
+    },
     existDraggedFile: false,
   })
 
   const fileList = ref<FileItem[]>([])
 
+  const currentFile = computed(() => {
+    return fileList.value.find(f => f.id === fileInfo.value.expandedFile.id)
+  })
+
+  const hasSameFile = (file: File) => {
+    return fileList.value.findIndex(f => f.file.name === file.name)
+  }
+
   // 添加文件
   const addFiles = (file: File | File[]) => {
     const files = Array.isArray(file) ? file : [file]
     files.forEach((f) => {
-      const index = hasSameFile(f, fileList.value)
+      const index = hasSameFile(f)
       if (index !== -1) {
-        fileList.value[index] = {
-          file: f,
-          id: crypto.randomUUID(),
-          name: f.name,
-          uploadTime: new Date(),
-        }
+        fileList.value[index] = createFileItem(f)
       }
       else {
-        fileList.value.push({
-          file: f,
-          id: crypto.randomUUID(),
-          name: f.name,
-          uploadTime: new Date(),
-        })
+        fileList.value.push(createFileItem(f))
       }
     })
-    console.log(fileList.value)
   }
 
   // 删除文件
@@ -63,6 +71,8 @@ export const useTranslateStore = defineStore('translate', () => {
   return {
     fileInfo,
     fileList,
+    currentFile,
+    hasSameFile,
     updateFileInfo,
     addFiles,
     removeFile,
