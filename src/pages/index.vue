@@ -1,13 +1,16 @@
 <script setup lang="ts" generic="T extends any, O extends any">
-import { getLanguageDisplayName } from '~/composables'
+import { checkAvailability, getLanguageDisplayName } from '~/composables'
+import { useTranslateStore } from '~/stores/translate'
 
 defineOptions({
   name: 'IndexPage',
 })
 
-// 语言选择
-const sourceLanguage = ref('zh')
-const targetLanguage = ref('en')
+const translateStore = useTranslateStore()
+
+watchEffect(() => {
+  checkAvailability(translateStore.languageInfo)
+})
 </script>
 
 <template>
@@ -21,7 +24,7 @@ const targetLanguage = ref('en')
         <!-- 原文语言选择 -->
         <div class="flex-1">
           <LanguageSelect
-            v-model="sourceLanguage"
+            v-model="translateStore.languageInfo.source"
             label="原文语言"
             placeholder="选择原文语言"
             size="md"
@@ -31,7 +34,7 @@ const targetLanguage = ref('en')
         <!-- 目标语言选择 -->
         <div class="flex-1">
           <LanguageSelect
-            v-model="targetLanguage"
+            v-model="translateStore.languageInfo.target"
             label="目标语言"
             placeholder="选择目标语言"
             size="md"
@@ -42,9 +45,9 @@ const targetLanguage = ref('en')
       <!-- 当前选择显示 -->
       <div class="text-sm text-gray-600 mt-3">
         <span>当前设置：</span>
-        <span class="text-blue-600 font-medium">{{ getLanguageDisplayName(sourceLanguage) }}</span>
+        <span class="text-blue-600 font-medium">{{ getLanguageDisplayName(translateStore.languageInfo.source) }}</span>
         <span class="mx-2">→</span>
-        <span class="text-green-600 font-medium">{{ getLanguageDisplayName(targetLanguage) }}</span>
+        <span class="text-green-600 font-medium">{{ getLanguageDisplayName(translateStore.languageInfo.target) }}</span>
       </div>
     </div>
 

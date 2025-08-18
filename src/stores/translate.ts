@@ -22,6 +22,16 @@ export const useTranslateStore = defineStore('translate', () => {
     existDraggedFile: false,
   })
 
+  const languageInfo = ref<{
+    source: string
+    target: string
+  }>({
+    source: 'zh',
+    target: 'en',
+  })
+
+  const availability = ref<boolean>(false)
+
   const fileList = ref<FileItem[]>([])
 
   const currentFile = computed(() => {
@@ -68,15 +78,22 @@ export const useTranslateStore = defineStore('translate', () => {
     fileInfo.value = value
   }
 
+  const setAvailability = async (flag: boolean) => {
+    availability.value = flag
+  }
+
   return {
     fileInfo,
     fileList,
     currentFile,
+    languageInfo,
+    availability,
     hasSameFile,
     updateFileInfo,
     addFiles,
     removeFile,
     clearFiles,
+    setAvailability,
   }
 })
 

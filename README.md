@@ -1,86 +1,153 @@
+# i18n Translator
+
 <p align='center'>
-  <img src='https://user-images.githubusercontent.com/11247099/111864893-a457fd00-899e-11eb-9f05-f4b88987541d.png' alt='Vitesse - Opinionated Vite Starter Template' width='600'/>
+  <img src='https://user-images.githubusercontent.com/11247099/111864893-a457fd00-899e-11eb-9f05-f4b88987541d.png' alt='i18n Translator' width='600'/>
 </p>
 
 <h6 align='center'>
-<a href="https://vitesse-lite.netlify.app/">Live Demo</a>
+  <b>Powered by Chrome 138 Built-in AI for Translation, Rapidly Responding to Project Internationalization Needs</b>
 </h6>
 
-<h5 align='center'>
-<b>Lightweight version of <a href="https://github.com/antfu/vitesse">Vitesse</a></b>
-</h5>
-
-<br>
-
 <p align='center'>
-<b>English</b> | <a href="https://github.com/antfu-collective/vitesse-lite/blob/main/README.zh-CN.md">简体中文</a>
-<!-- Contributors: Thanks for geting interested, however we DON'T accept new transitions to the README, thanks. -->
+  <b>English</b> | <a href="README.zh-CN.md">简体中文</a>
 </p>
 
-## Features
+## ✨ Features
 
-- ⚡️ [Vue 3](https://github.com/vuejs/core), [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [ESBuild](https://github.com/evanw/esbuild) - born with fastness
+- 🌍 **Multi-language Support** - Support for Chinese, English, and other languages
+- 📁 **File Upload & Management** - Upload and manage multiple translation files
+- 🔄 **Real-time Translation** - Professional quality instant translation powered by Chrome 138 AI
+- 📊 **Side-by-side Comparison** - Original and translated content displayed in parallel columns
+- 💾 **Multiple File Formats** - Support for JS, TS, JSON, YAML files
+- 🎨 **Modern UI/UX** - Beautiful, responsive interface with smooth animations
+- 📱 **Responsive Design** - Works perfectly on desktop and mobile devices
+- 🚀 **Fast Performance** - Built with Vue 3 and Vite for optimal performance
 
-- 🗂 [File based routing](./src/pages)
+## 🛠️ Tech Stack
 
-- 📦 [Components auto importing](./src/components)
+- **Frontend Framework**: [Vue 3](https://github.com/vuejs/core) with Composition API
+- **Build Tool**: [Vite](https://github.com/vitejs/vite) - Lightning fast build tool
+- **Styling**: [UnoCSS](https://github.com/antfu/unocss) - Atomic CSS framework
+- **State Management**: [Pinia](https://pinia.vuejs.org/) - Vue state management
+- **Routing**: [Vue Router](https://router.vuejs.org/) with file-based routing
+- **Internationalization**: [Vue I18n](https://vue-i18n.intlify.dev/) - Vue internationalization
+- **Package Manager**: [pnpm](https://pnpm.io/) - Fast, disk space efficient package manager
+- **Language**: [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
 
-- 🎨 [UnoCSS](https://github.com/antfu/unocss) - The instant on-demand atomic CSS engine.
+## 🚀 Quick Start
 
-- 😃 Use icons from any icon sets in [Pure CSS](https://github.com/antfu/unocss/tree/main/packages/preset-icons)
+### Prerequisites
 
-- 🔥 Use the [new `<script setup>` style](https://github.com/vuejs/rfcs/pull/227)
+- Node.js 18+
+- pnpm (recommended) or npm
 
-- ✅ Use [Vitest](http://vitest.dev/) for unit and components testing
+### Installation
 
-- 🦾 TypeScript, of course
+1. **Clone the repository**
 
-- ☁️ Deploy on Netlify, zero-config
+   ```bash
+   git clone https://github.com/your-username/i18n-translator.git
+   cd i18n-translator
+   ```
 
-<br>
+2. **Install dependencies**
 
-See [Vitesse](https://github.com/antfu/vitesse) for full featureset.
+   ```bash
+   pnpm install
+   # or
+   npm install
+   ```
 
-## Dropped Features from [Vitesse](https://github.com/antfu/vitesse)
+3. **Start development server**
 
-- ~~i18n~~
-- ~~Layouts~~
-- ~~SSG~~
-- ~~PWA~~
-- ~~Markdown~~
+   ```bash
+   pnpm dev
+   # or
+   npm run dev
+   ```
 
-## Pre-packed
+4. **Open your browser**
+   Navigate to `http://localhost:3333`
 
-### UI Frameworks
-
-- [UnoCSS](https://github.com/antfu/unocss) - The instant on-demand atomic CSS engine.
-
-### Icons
-
-- [Iconify](https://iconify.design) - use icons from any icon sets [🔍Icônes](https://icones.netlify.app/)
-- [Pure CSS Icons via UnoCSS](https://github.com/antfu/unocss/tree/main/packages/preset-icons)
-
-### Plugins
-
-- [Vue Router](https://github.com/vuejs/vue-router)
-  - [`unplugin-vue-router`](https://github.com/posva/unplugin-vue-router) - file system based routing
-- [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import) - Directly use Vue Composition API and others without importing
-- [`unplugin-vue-components`](https://github.com/antfu/unplugin-vue-components) - components auto import
-- [`unplugin-vue-macros`](https://github.com/sxzz/unplugin-vue-macros) - Explore and extend more macros and syntax sugar to Vue.
-- [VueUse](https://github.com/antfu/vueuse) - collection of useful composition APIs
-
-## Try it now!
-
-### GitHub Template
-
-[Create a repo from this template on GitHub](https://github.com/antfu-collective/vitesse-lite/generate).
-
-### Clone to local
-
-If you prefer to do it manually with the cleaner git history
+### Build for Production
 
 ```bash
-npx degit antfu-collective/vitesse-lite my-vitesse-app
-cd my-vitesse-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
+pnpm build
+pnpm preview
 ```
+
+## 📖 Usage
+
+### 1. Language Selection
+
+- Choose source language (original content)
+- Choose target language (translation target)
+
+### 2. File Upload
+
+- Upload supported file types: `.js`, `.ts`, `.json`, `.yml`, `.yaml`
+- Files are automatically processed and prepared for translation
+
+### 3. Translation Process
+
+- View original content in the left column
+- Translated content appears in the right column
+- Both columns scroll synchronously for easy comparison
+
+### 4. File Management
+
+- View uploaded files in the file list
+- Access file content and translations
+- Download translated files in various formats
+
+## 🎯 Supported File Types
+
+| File Type  | Extension       | Description              |
+| ---------- | --------------- | ------------------------ |
+| JavaScript | `.js`           | JavaScript source files  |
+| TypeScript | `.ts`           | TypeScript source files  |
+| JSON       | `.json`         | JSON configuration files |
+| YAML       | `.yml`, `.yaml` | YAML configuration files |
+
+## 📱 Browser Support
+
+- Chrome 138+
+
+## 🤝 Contributing
+
+We welcome contributions! Please feel free to submit a Pull Request.
+
+### Development Setup
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Code Style
+
+- Follow Vue 3 Composition API best practices
+- Use TypeScript for type safety
+- Follow ESLint configuration
+- Write meaningful commit messages
+
+## 📄 License
+
+This project is licensed under the **MIT License with Non-Commercial Use Restriction** - see the [LICENSE](LICENSE) file for details.
+
+**⚠️ Important**: Commercial use is strictly prohibited without explicit permission. This license allows free use for personal, educational, and non-profit purposes only.
+
+## 🙏 Acknowledgments
+
+- Built with [Vitesse](https://github.com/antfu/vitesse) template
+- Icons from [Iconify](https://iconify.design/)
+- UI components styled with [UnoCSS](https://github.com/antfu/unocss)
+
+## 📞 Support
+
+If you have any questions or need help, please:
+
+- Open an [Issue](https://github.com/your-username/i18n-translator/issues)
+- Check the [Documentation](https://github.com/your-username/i18n-translator/wiki)
+- Contact the maintainers

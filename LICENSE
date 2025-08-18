@@ -1,21 +1,58 @@
-MIT License
+MIT License with Non-Commercial Use Restriction
 
-Copyright (c) 2020-PRESENT Anthony Fu
+Copyright (c) 2024 Levan <https://github.com/lezzhao>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+copies of the Software, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. COMMERCIAL USE IS STRICTLY PROHIBITED. This software may NOT be used for any
+   commercial purposes, including but not limited to:
+   - Selling the software or its derivatives
+   - Using the software in commercial products or services
+   - Incorporating the software into commercial applications
+   - Using the software for profit-generating activities
+   - Redistributing the software for commercial gain
+
+3. NON-COMMERCIAL USE IS PERMITTED. You may use this software for:
+   - Personal projects and learning
+   - Educational purposes
+   - Non-profit organizations
+   - Open source projects
+   - Research and development
+
+4. ATTRIBUTION IS REQUIRED. If you use, modify, or distribute this software,
+   you must include:
+   - The original copyright notice
+   - A link to the original repository
+   - Clear indication that the software is based on this project
+
+5. NO WARRANTY. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+   EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+   OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+   ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+   DEALINGS IN THE SOFTWARE.
+
+6. COMMERCIAL USE EXCEPTIONS. Commercial use may be permitted only with explicit
+   written permission from the copyright holders. To request permission, contact:
+   - GitHub Issues: https://github.com/your-username/i18n-translator/issues
+   - Email: your-email@example.com
+
+7. ENFORCEMENT. Violation of this license may result in legal action. The
+   copyright holders reserve the right to enforce these terms and conditions.
+
+For questions about this license or to request commercial use permission,
+please contact the project maintainers through the methods listed above.
+
+---
+
+This license is based on the MIT License with additional restrictions on
+commercial use. It is designed to protect the open source nature of this
+project while preventing commercial exploitation without permission.

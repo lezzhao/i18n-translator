@@ -26,7 +26,7 @@ function handleDragLeave(e: DragEvent) {
 }
 
 function addFiles(files?: FileList | null) {
-  if (!files) {
+  if (!files || !translateStore.availability) {
     return
   }
   const fileArray = Array.from(files)
@@ -37,7 +37,7 @@ function addFiles(files?: FileList | null) {
       const i = translateStore.hasSameFile(file)
       if (i !== -1) {
         translateStore.fileList[i].content = content
-        translateText(content).then((translated) => {
+        translateText(content, translateStore.languageInfo).then((translated) => {
           translateStore.fileList[i].translatedContent = translated
         })
       }
@@ -57,8 +57,18 @@ function handleDrop(e: DragEvent) {
 
 // 处理文件选择
 function handleFileSelect(event: Event) {
+  if (!translateStore.availability) {
+    return
+  }
   const target = event.target as HTMLInputElement
   addFiles(target.files)
+}
+
+function handleUpload() {
+  if (!translateStore.availability) {
+    return
+  }
+  fileRef?.value?.click()
 }
 </script>
 
@@ -76,7 +86,8 @@ function handleFileSelect(event: Event) {
       >
       <button
         class="text-white px-3 py-1.5 rounded-lg bg-blue-500 flex cursor-pointer transition-colors items-center hover:bg-blue-600"
-        @click="fileRef?.click()"
+        :class="{ 'opacity-50 cursor-not-allowed': !translateStore.availability }"
+        @click="handleUpload"
       >
         <div i-carbon-cloud-upload mr-2 inline-block />
         <span>选择文件</span>

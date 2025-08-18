@@ -1,3 +1,5 @@
+import { useTranslateStore } from './../stores/translate'
+
 const translatedMap = new Map<string, string>()
 const translatorMap = new Map<string, any>()
 
@@ -6,9 +8,7 @@ async function createTranslator(options?: {
   target: string
 }) {
   const { source = 'zh', target = 'en' } = options || {}
-
   const key = `${source}-${target}`
-
   if (translatorMap.has(key)) {
     return translatorMap.get(key)
   }
@@ -51,4 +51,23 @@ export async function translateText(text: string, options?: {
   return text.replaceAll(regex, (str: string, p1: string, p2: string) => {
     return str.replace(p2, translatedMap.get(`${p1}-${p2}`) || p2)
   })
+}
+
+// 检查可用性
+export async function checkAvailability(options: {
+  source: string
+  target: string
+}) {
+  const translateStore = useTranslateStore()
+  const availability = await window.Translator.availability({
+    sourceLanguage: options?.source,
+    targetLanguage: options?.target,
+  })
+  translateStore.setAvailability(availability !== 'unavailable')
+  if (availability === 'unavailable') {
+    // eslint-disable-next-line no-alert
+    alert(`Translator is not available: ${options.source} to ${options.target}`)
+  }
+  createTranslator(options)
+  return availability
 }

@@ -48,6 +48,13 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
     return { text: 'YAML', class: 'bg-purple-100 text-purple-800' }
   return { text: 'Unknown', class: 'bg-gray-100 text-gray-800' }
 }
+
+function download(fileItem: FileItem) {
+  if (!translateStore.availability || !fileItem.translatedContent) {
+    return
+  }
+  downloadContentAsFile(fileItem.translatedContent, fileItem.file.name)
+}
 </script>
 
 <template>
@@ -120,7 +127,8 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
                 </button>
                 <button
                   class="text-xs text-green-600 px-2 py-1.5 rounded-lg bg-green-100 flex cursor-pointer transition-colors items-center space-x-1 hover:bg-green-200"
-                  @click="() => downloadContentAsFile(fileItem.translatedContent, fileItem.file.name)"
+                  :class="{ 'opacity-50 cursor-not-allowed': !translateStore.availability }"
+                  @click="download(fileItem)"
                 >
                   <div i-carbon-download text-xs />
                   <span>下载译文</span>
