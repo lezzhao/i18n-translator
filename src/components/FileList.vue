@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FileItem } from '~/types'
-import { downloadFile, formatFileSize, getFileIcon } from '~/composables/file'
+import { downloadContentAsFile, formatFileSize, getFileIcon } from '~/composables/file'
 import { useTranslateStore } from '~/stores/translate'
 
 const translateStore = useTranslateStore()
@@ -55,11 +55,11 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
     <!-- 文件列表 -->
     <div v-if="translateStore.fileList.length > 0" class="mt-6">
       <div class="mb-4 flex items-center justify-between">
-        <h3 class="text-lg text-gray-800 font-semibold">
+        <h3 class="text-base text-gray-800 font-semibold">
           已上传的文件 ({{ translateStore.fileList.length }})
         </h3>
         <button
-          class="text-sm text-red-600 px-4 py-2 rounded-lg bg-red-100 transition-colors hover:bg-red-200"
+          class="text-sm text-red-600 px-3 py-1.5 rounded-lg bg-red-100 cursor-pointer transition-colors hover:bg-red-200"
           @click="translateStore.clearFiles"
         >
           清空所有
@@ -77,34 +77,34 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
             <div class="p-4 flex transition-colors items-center justify-between hover:bg-gray-50">
               <!-- 文件信息 -->
               <div class="flex flex-1 min-w-0 items-center space-x-4">
-                <div class="flex-shrink-0">
-                  <div :class="getFileIcon(fileItem.file.type)" text-xl text-gray-500 />
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="mb-1 flex items-center space-x-2">
-                    <h4 class="text-sm text-gray-900 font-medium truncate" :title="fileItem.file.name">
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <div :class="getFileIcon(fileItem.file.type)" text-xl text-gray-500 flex-shrink-0 />
+                    <span class="text-sm text-gray-500 flex-1 min-w-0 truncate" :title="fileItem.file.name">
                       {{ fileItem.file.name }}
-                    </h4>
+                    </span>
                     <span
-                      class="text-xs font-medium px-2 py-1 rounded-full"
+                      class="text-xs font-medium px-2 py-1 rounded-full flex-shrink-0"
                       :class="getFileTypeTag(fileItem.file.name).class"
                     >
                       {{ getFileTypeTag(fileItem.file.name).text }}
                     </span>
                   </div>
-                  <p class="text-sm text-gray-500">
-                    {{ formatFileSize(fileItem.file.size) }} • {{ fileItem.file.type || '未知类型' }}
-                  </p>
-                  <p class="text-xs text-gray-400 mt-1">
-                    上传时间：{{ fileItem.uploadTime.toLocaleString() }}
-                  </p>
+                  <div class="text-xs text-gray-400 mt-2 flex items-center space-x-4">
+                    <span>
+                      {{ formatFileSize(fileItem.file.size) }}
+                    </span>
+                    <span>
+                      {{ fileItem.uploadTime.toLocaleString() }}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               <!-- 操作按钮 -->
               <div class="flex flex-shrink-0 items-center space-x-2">
                 <button
-                  class="text-sm px-3 py-2 rounded-lg flex transition-colors items-center space-x-1"
+                  class="text-xs px-2 py-1.5 rounded-lg flex cursor-pointer transition-colors items-center space-x-1"
                   :class="isExpanded(fileItem.id)
                     ? 'text-blue-700 bg-blue-200 hover:bg-blue-300'
                     : 'text-blue-600 bg-blue-100 hover:bg-blue-200'"
@@ -119,18 +119,18 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
                   <span>{{ isExpanded(fileItem.id) ? '收起' : '查看' }}</span>
                 </button>
                 <button
-                  class="text-sm text-green-600 px-3 py-2 rounded-lg bg-green-100 flex transition-colors items-center space-x-1 hover:bg-green-200"
-                  @click="() => downloadFile(fileItem.file)"
+                  class="text-xs text-green-600 px-2 py-1.5 rounded-lg bg-green-100 flex cursor-pointer transition-colors items-center space-x-1 hover:bg-green-200"
+                  @click="() => downloadContentAsFile(fileItem.translatedContent, fileItem.file.name)"
                 >
-                  <div i-carbon-download text-sm />
-                  <span>下载</span>
+                  <div i-carbon-download text-xs />
+                  <span>下载译文</span>
                 </button>
                 <button
-                  class="text-sm text-red-600 px-3 py-2 rounded-lg bg-red-100 transition-colors hover:bg-red-200"
+                  class="text-xs text-red-600 px-2 py-1.5 rounded-lg bg-red-100 flex cursor-pointer transition-colors items-center space-x-1 hover:bg-red-200"
                   @click="() => translateStore.removeFile(fileItem.id)"
                 >
-                  <div i-carbon-trash-can text-sm />
-                  <span>删除</span>
+                  <div i-carbon-trash-can text-xs />
+                  <span>移除</span>
                 </button>
               </div>
             </div>
@@ -148,33 +148,7 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
                 v-if="isExpanded(fileItem.id)"
                 class="bg-gradient-to-r border-t border-gray-200 from-blue-50 to-indigo-50"
               >
-                <div class="p-6">
-                  <!-- 内容预览头部 -->
-                  <div class="mb-4 flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                      <div class="rounded-full bg-blue-100 flex h-8 w-8 items-center justify-center">
-                        <div i-carbon-document-text text-sm text-blue-600 />
-                      </div>
-                      <div>
-                        <h5 class="text-sm text-gray-800 font-semibold">
-                          文件内容预览
-                        </h5>
-                        <p class="text-xs text-gray-500">
-                          点击内容区域可全屏查看
-                        </p>
-                      </div>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                      <span class="text-xs text-gray-500">{{ fileItem.file.name }}</span>
-                      <span
-                        class="text-xs font-medium px-2 py-1 rounded-full"
-                        :class="getFileTypeTag(fileItem.file.name).class"
-                      >
-                        {{ getFileTypeTag(fileItem.file.name).text }}
-                      </span>
-                    </div>
-                  </div>
-
+                <div class="p-3">
                   <!-- 使用文件内容预览组件 -->
                   <FileContent
                     :content="translateStore.fileInfo.expandedFile.content"

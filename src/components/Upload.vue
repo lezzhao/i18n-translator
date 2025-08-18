@@ -75,7 +75,7 @@ function handleFileSelect(event: Event) {
         @change="handleFileSelect"
       >
       <button
-        class="text-white px-4 py-2 rounded-lg bg-blue-500 flex transition-colors items-center hover:bg-blue-600"
+        class="text-white px-3 py-1.5 rounded-lg bg-blue-500 flex cursor-pointer transition-colors items-center hover:bg-blue-600"
         @click="fileRef?.click()"
       >
         <div i-carbon-cloud-upload mr-2 inline-block />
@@ -85,6 +85,7 @@ function handleFileSelect(event: Event) {
 
     <!-- 拖拽上传区域 -->
     <div
+      v-show="!translateStore.fileList.length"
       class="drag-area p-8 border-2 border-gray-300 rounded-lg border-dashed bg-gray-50 h-48 w-full transition-all duration-300"
       :class="{ 'border-blue-500 bg-blue-50': translateStore.fileInfo.existDraggedFile }"
       @dragover="handleDragOver"

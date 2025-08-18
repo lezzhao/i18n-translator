@@ -1,5 +1,4 @@
 import yaml from 'js-yaml'
-import { translate, translateText } from './translate'
 
 export interface FileItem {
   file: File
@@ -62,23 +61,24 @@ export function getFileIcon(type: string): string {
   return 'i-carbon-document'
 }
 
-// 下载文件
-export function downloadFile(file: File) {
-  const url = URL.createObjectURL(file)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = file.name
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
-}
-
 // 转换yaml为json
 export async function convertYamlToJson(content: string): Promise<string> {
   try {
     const json = yaml.load(content)
     const res = JSON.stringify(json, null, 2)
+    return res
+  }
+  catch (error) {
+    console.error(error)
+    return content
+  }
+}
+
+// 将json转换为yaml
+export async function convertJsonToYaml(content: string): Promise<string> {
+  try {
+    const json = JSON.parse(content)
+    const res = yaml.dump(json)
     return res
   }
   catch (error) {
@@ -105,4 +105,46 @@ export async function getFileContent(file: File) {
     console.error('解析文件内容失败:', error)
     return '无法读取文件内容'
   }
+}
+
+// 下载内容为指定类型的文件
+export async function downloadContentAsFile(
+  content: string,
+  fileName: string,
+) {
+  const fileType = fileName.slice(fileName.lastIndexOf('.') + 1)
+  // 根据文件类型设置MIME类型
+  const mimeTypes: Record<string, string> = {
+    js: 'application/javascript',
+    ts: 'application/typescript',
+    json: 'application/json',
+    yml: 'text/yaml',
+    yaml: 'text/yaml',
+  }
+
+  // 确保文件名有正确的扩展名
+  const extension = fileType === 'yml' ? '.yml' : `.${fileType}`
+
+  if (fileType === 'yml' || fileType === 'yaml') {
+    content = await convertJsonToYaml(content)
+  }
+
+  const finalFileName = fileName.endsWith(extension) ? fileName : `${fileName}${extension}`
+
+  // 创建Blob对象
+  const blob = new Blob([content], { type: mimeTypes[fileType] })
+
+  // 创建下载链接
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = finalFileName
+
+  // 触发下载
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+
+  // 清理URL对象
+  URL.revokeObjectURL(url)
 }

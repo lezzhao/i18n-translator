@@ -9,6 +9,7 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const availableLocales: typeof import('./src/composables/ i18n')['availableLocales']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -16,6 +17,7 @@ declare global {
   const computedWithControl: typeof import('@vueuse/core')['computedWithControl']
   const controlledComputed: typeof import('@vueuse/core')['controlledComputed']
   const controlledRef: typeof import('@vueuse/core')['controlledRef']
+  const convertYamlToJson: typeof import('./src/composables/file')['convertYamlToJson']
   const createApp: typeof import('vue')['createApp']
   const createEventHook: typeof import('@vueuse/core')['createEventHook']
   const createGlobalState: typeof import('@vueuse/core')['createGlobalState']
@@ -33,21 +35,32 @@ declare global {
   const defineComponent: typeof import('vue')['defineComponent']
   const defineLoader: typeof import('vue-router/auto')['defineLoader']
   const definePage: typeof import('unplugin-vue-router/runtime')['definePage']
+  const downloadContentAsFile: typeof import('./src/composables/file')['downloadContentAsFile']
+  const downloadFile: typeof import('./src/composables/file')['downloadFile']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const filterAllowedFiles: typeof import('./src/composables/file')['filterAllowedFiles']
+  const formatFileSize: typeof import('./src/composables/file')['formatFileSize']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getFileContent: typeof import('./src/composables/file')['getFileContent']
+  const getFileIcon: typeof import('./src/composables/file')['getFileIcon']
+  const getLanguageDisplayName: typeof import('./src/composables/language')['getLanguageDisplayName']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
+  const initI18n: typeof import('./src/composables/ i18n')['initI18n']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
+  const isAllowedFile: typeof import('./src/composables/file')['isAllowedFile']
   const isDark: typeof import('./src/composables/dark')['isDark']
   const isDefined: typeof import('@vueuse/core')['isDefined']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
+  const languages: typeof import('./src/composables/language')['languages']
+  const loadLanguageAsync: typeof import('./src/composables/ i18n')['loadLanguageAsync']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const nextTick: typeof import('vue')['nextTick']
@@ -105,6 +118,8 @@ declare global {
   const toRefs: typeof import('vue')['toRefs']
   const toValue: typeof import('vue')['toValue']
   const toggleDark: typeof import('./src/composables/dark')['toggleDark']
+  const translate: typeof import('./src/composables/translate')['translate']
+  const translateText: typeof import('./src/composables/translate')['translateText']
   const triggerRef: typeof import('vue')['triggerRef']
   const tryOnBeforeMount: typeof import('@vueuse/core')['tryOnBeforeMount']
   const tryOnBeforeUnmount: typeof import('@vueuse/core')['tryOnBeforeUnmount']
@@ -303,6 +318,12 @@ declare global {
   // @ts-ignore
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { FileItem } from './src/composables/file'
+  import('./src/composables/file')
+  // @ts-ignore
+  export type { Language } from './src/composables/language'
+  import('./src/composables/language')
 }
 
 // for vue template auto import
@@ -313,6 +334,7 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly availableLocales: UnwrapRef<typeof import('./src/composables/ i18n')['availableLocales']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -320,6 +342,7 @@ declare module 'vue' {
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
+    readonly convertYamlToJson: UnwrapRef<typeof import('./src/composables/file')['convertYamlToJson']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createEventHook: UnwrapRef<typeof import('@vueuse/core')['createEventHook']>
     readonly createGlobalState: UnwrapRef<typeof import('@vueuse/core')['createGlobalState']>
@@ -335,21 +358,31 @@ declare module 'vue' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly downloadContentAsFile: UnwrapRef<typeof import('./src/composables/file')['downloadContentAsFile']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly filterAllowedFiles: UnwrapRef<typeof import('./src/composables/file')['filterAllowedFiles']>
+    readonly formatFileSize: UnwrapRef<typeof import('./src/composables/file')['formatFileSize']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getFileContent: UnwrapRef<typeof import('./src/composables/file')['getFileContent']>
+    readonly getFileIcon: UnwrapRef<typeof import('./src/composables/file')['getFileIcon']>
+    readonly getLanguageDisplayName: UnwrapRef<typeof import('./src/composables/language')['getLanguageDisplayName']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
+    readonly initI18n: UnwrapRef<typeof import('./src/composables/ i18n')['initI18n']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
+    readonly isAllowedFile: UnwrapRef<typeof import('./src/composables/file')['isAllowedFile']>
     readonly isDark: UnwrapRef<typeof import('./src/composables/dark')['isDark']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
+    readonly languages: UnwrapRef<typeof import('./src/composables/language')['languages']>
+    readonly loadLanguageAsync: UnwrapRef<typeof import('./src/composables/ i18n')['loadLanguageAsync']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
@@ -407,6 +440,8 @@ declare module 'vue' {
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
     readonly toValue: UnwrapRef<typeof import('vue')['toValue']>
     readonly toggleDark: UnwrapRef<typeof import('./src/composables/dark')['toggleDark']>
+    readonly translate: UnwrapRef<typeof import('./src/composables/translate')['translate']>
+    readonly translateText: UnwrapRef<typeof import('./src/composables/translate')['translateText']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly tryOnBeforeMount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeMount']>
     readonly tryOnBeforeUnmount: UnwrapRef<typeof import('@vueuse/core')['tryOnBeforeUnmount']>

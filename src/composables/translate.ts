@@ -48,7 +48,7 @@ export async function translateText(text: string, options?: {
       translatedMap.set(`${p1}-${p2}`, translated)
     }
   }
-  return text.replaceAll(regex, (_, p1, p2) => {
-    return `"${p1}": "${translatedMap.get(`${p1}-${p2}`)}"`
+  return text.replaceAll(regex, (str: string, p1: string, p2: string) => {
+    return str.replace(p2, translatedMap.get(`${p1}-${p2}`) || p2)
   })
 }

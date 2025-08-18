@@ -43,58 +43,59 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
           </div>
         </div>
 
-        <!-- 代码内容 -->
-        <div class="bg-gradient-to-br max-h-96 overflow-auto from-slate-50 to-blue-50 via-white">
-          <div class="relative">
-            <!-- 代码内容 -->
-            <pre class="text-xs text-slate-800 font-mono whitespace-pre-wrap relative overflow-x-auto selection:text-blue-900 selection:bg-blue-200">
-              <code class="block">
-                <span
-                  v-for="(line, lineIndex) in translateStore.currentFile?.content.split('\n')"
-                  :key="lineIndex"
-                  class="leading-4 h-4 block"
-                  :class="{ 'opacity-60': line.trim() === '' }"
-                >
-                  {{ line }}
-                </span>
-              </code>
-            </pre>
+        <!-- 两列内容展示 -->
+        <div class="gap-0 grid grid-cols-2 max-h-96 overflow-overlay">
+          <!-- 原文列 -->
+          <div class="px-3 border-r border-gray-200">
+            <div class="bg-gradient-to-br from-slate-50 to-blue-50 via-white">
+              <div class="relative">
+                <!-- 原文标题 -->
+                <div class="px-3 py-2 border-b border-blue-200 bg-white top-0 sticky z-1">
+                  <h3 class="text-xs text-blue-800 font-medium">
+                    原文
+                  </h3>
+                </div>
+                <!-- 原文内容 -->
+                <pre class="text-xs text-slate-800 font-mono whitespace-pre-wrap relative overflow-x-auto selection:text-blue-900 selection:bg-blue-200">
+                  <code class="block">
+                    <span
+                      v-for="(line, lineIndex) in translateStore.currentFile?.content.split('\n')"
+                      :key="`original-${lineIndex}`"
+                      class="leading-4 px-3 h-5 block"
+                      :class="{ 'opacity-60': line.trim() === '' }"
+                    >
+                      {{ line }}
+                    </span>
+                  </code>
+                </pre>
+              </div>
+            </div>
           </div>
-        </div><div class="bg-gradient-to-br max-h-96 overflow-auto from-slate-50 to-blue-50 via-white">
-          <div class="relative">
-            <!-- 代码内容 -->
-            <pre class="text-xs text-slate-800 font-mono whitespace-pre-wrap relative overflow-x-auto selection:text-blue-900 selection:bg-blue-200">
-              <code class="block">
-                <span
-                  v-for="(line, lineIndex) in translateStore.currentFile?.translatedContent.split('\n')"
-                  :key="lineIndex"
-                  class="leading-4 h-4 block"
-                  :class="{ 'opacity-60': line.trim() === '' }"
-                >
-                  {{ line }}
-                </span>
-              </code>
-            </pre>
-          </div>
-        </div>
-      </div>
 
-      <!-- 内容操作提示 -->
-      <div class="mt-2 flex items-center justify-center">
-        <div class="text-xs text-gray-500 px-2 py-1 border border-gray-200 rounded-full bg-white flex shadow-sm items-center space-x-3">
-          <div class="flex items-center space-x-1">
-            <div i-carbon-copy text-xs text-blue-500 />
-            <span>点击内容可复制</span>
-          </div>
-          <div class="bg-gray-200 h-2.5 w-px" />
-          <div class="flex items-center space-x-1">
-            <div i-carbon-zoom-in text-xs text-green-500 />
-            <span>滚动查看更多</span>
-          </div>
-          <div class="bg-gray-200 h-2.5 w-px" />
-          <div class="flex items-center space-x-1">
-            <div i-carbon-document text-xs text-purple-500 />
-            <span>{{ getFileTypeTag(translateStore.currentFile?.name || '').text }}</span>
+          <!-- 译文列 -->
+          <div class="bg-gradient-to-br px-3 from-slate-50 to-green-50 via-white">
+            <div class="relative">
+              <!-- 译文标题 -->
+              <div class="px-3 py-2 border-b border-green-200 bg-white top-0 sticky z-1">
+                <h3 class="text-xs text-green-800 font-medium relative">
+                  译文
+                  <div title="点击复制" i-carbon-copy class="text-xs text-gray-600 cursor-pointer right-0 top-1/2 absolute hover:text-blue-500 -translate-y-1/2" />
+                </h3>
+              </div>
+              <!-- 译文内容 -->
+              <pre class="text-xs text-slate-800 font-mono whitespace-pre-wrap relative overflow-x-auto selection:text-blue-900 selection:bg-blue-200">
+                  <code class="block">
+                    <span
+                      v-for="(line, lineIndex) in translateStore.currentFile?.translatedContent.split('\n')"
+                      :key="`translated-${lineIndex}`"
+                      class="leading-4 px-3 h-5 block"
+                      :class="{ 'opacity-60': line.trim() === '' }"
+                    >
+                      {{ line }}
+                    </span>
+                  </code>
+                </pre>
+            </div>
           </div>
         </div>
       </div>
@@ -125,8 +126,7 @@ pre code span {
   transition: background-color 0.2s ease;
   margin: 0;
   padding: 0;
-  height: 16px;
-  line-height: 16px;
+  white-space: nowrap;
 }
 
 pre code span:hover {
@@ -136,8 +136,6 @@ pre code span:hover {
 /* 空行样式 */
 pre code span.opacity-60 {
   color: #9ca3af;
-  height: 16px;
-  line-height: 16px;
 }
 
 /* JSON语法高亮样式 */
