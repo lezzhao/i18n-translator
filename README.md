@@ -1,9 +1,5 @@
 # i18n Translator
 
-<p align='center'>
-  <img src='https://user-images.githubusercontent.com/11247099/111864893-a457fd00-899e-11eb-9f05-f4b88987541d.png' alt='i18n Translator' width='600'/>
-</p>
-
 <h6 align='center'>
   <b>Powered by Chrome 138 Built-in AI for Translation, Rapidly Responding to Project Internationalization Needs</b>
 </h6>

@@ -1,7 +1,13 @@
 {
+  "name": "i18n-translator",
   "type": "module",
+  "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@10.12.1",
+  "description": "Powered by Chrome 138 Built-in AI for Translation, Rapidly Responding to Project Internationalization Needs",
+  "author": "Levan <https://github.com/lezzhao>",
+  "license": "MIT",
+  "homepage": "https://github.com/lezzhao/i18n-translator",
   "scripts": {
     "build": "vite build",
     "dev": "vite --port 3333 --open",

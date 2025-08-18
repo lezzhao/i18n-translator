@@ -1,9 +1,5 @@
 # i18n 翻译器
 
-<p align='center'>
-  <img src='https://user-images.githubusercontent.com/11247099/111864893-a457fd00-899e-11eb-9f05-f4b88987541d.png' alt='i18n 翻译器' width='600'/>
-</p>
-
 <h6 align='center'>
   <b>基于Chrome 138内置AI进行翻译，快速响应项目国际化需求</b>
 </h6>
