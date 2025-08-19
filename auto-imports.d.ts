@@ -10,6 +10,7 @@ declare global {
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const availableLocales: typeof import('./src/composables/ i18n')['availableLocales']
+  const checkAvailability: typeof import('./src/composables/translate')['checkAvailability']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -17,6 +18,7 @@ declare global {
   const computedWithControl: typeof import('@vueuse/core')['computedWithControl']
   const controlledComputed: typeof import('@vueuse/core')['controlledComputed']
   const controlledRef: typeof import('@vueuse/core')['controlledRef']
+  const convertJsonToYaml: typeof import('./src/composables/file')['convertJsonToYaml']
   const convertYamlToJson: typeof import('./src/composables/file')['convertYamlToJson']
   const createApp: typeof import('vue')['createApp']
   const createEventHook: typeof import('@vueuse/core')['createEventHook']
@@ -335,6 +337,7 @@ declare module 'vue' {
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly availableLocales: UnwrapRef<typeof import('./src/composables/ i18n')['availableLocales']>
+    readonly checkAvailability: UnwrapRef<typeof import('./src/composables/translate')['checkAvailability']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -342,6 +345,7 @@ declare module 'vue' {
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
+    readonly convertJsonToYaml: UnwrapRef<typeof import('./src/composables/file')['convertJsonToYaml']>
     readonly convertYamlToJson: UnwrapRef<typeof import('./src/composables/file')['convertYamlToJson']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createEventHook: UnwrapRef<typeof import('@vueuse/core')['createEventHook']>
