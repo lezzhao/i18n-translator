@@ -1,7 +1,7 @@
 # i18n Translator
 
 <h6 align='center'>
-  <b>Powered by Chrome 138 Built-in AI for Translation, Rapidly Responding to Project Internationalization Needs</b>
+  <b>AI-powered translation tool based on Chrome 138, rapidly responding to project internationalization needs</b>
 </h6>
 
 <p align='center'>
@@ -10,43 +10,44 @@
 
 ## ✨ Features
 
-- 🌍 **Multi-language Support** - Support for Chinese, English, and other languages
-- 📁 **File Upload & Management** - Upload and manage multiple translation files
-- 🔄 **Real-time Translation** - Professional quality instant translation powered by Chrome 138 AI
+- 🌍 **Multi-language Support** - Support for Chinese and English interface switching
+- 🌙 **Dark Mode** - Support for light/dark theme switching, automatically follows system
+- 📁 **File Upload Management** - Support drag and drop upload, manage multiple translation files
+- 🔄 **AI Intelligent Translation** - Professional translation powered by Chrome 138 built-in AI
 - 📊 **Side-by-side Comparison** - Original and translated content displayed in parallel columns
-- 💾 **Multiple File Formats** - Support for JS, TS, JSON, YAML files
+- 💾 **Multi-format Support** - Support for JS, TS, JSON, YAML and other file formats
 - 🎨 **Modern UI/UX** - Beautiful, responsive interface with smooth animations
-- 📱 **Responsive Design** - Works perfectly on desktop and mobile devices
-- 🚀 **Fast Performance** - Built with Vue 3 and Vite for optimal performance
+- 📱 **Responsive Design** - Perfectly adapts to desktop and mobile devices
+- 🚀 **High Performance** - Built with Vue 3 and Vite for optimal performance
 
 ## 🛠️ Tech Stack
 
-- **Frontend Framework**: [Vue 3](https://github.com/vuejs/core) with Composition API
+- **Frontend Framework**: [Vue 3](https://github.com/vuejs/core) + Composition API
 - **Build Tool**: [Vite](https://github.com/vitejs/vite) - Lightning fast build tool
-- **Styling**: [UnoCSS](https://github.com/antfu/unocss) - Atomic CSS framework
+- **Styling Framework**: [UnoCSS](https://github.com/antfu/unocss) - Atomic CSS framework
 - **State Management**: [Pinia](https://pinia.vuejs.org/) - Vue state management
-- **Routing**: [Vue Router](https://router.vuejs.org/) with file-based routing
-- **Internationalization**: [Vue I18n](https://vue-i18n.intlify.dev/) - Vue internationalization
+- **Routing**: [Vue Router](https://router.vuejs.org/) + file-based routing
+- **Internationalization**: [Vue I18n](https://vue-i18n.intlify.dev/) - Vue internationalization solution
 - **Package Manager**: [pnpm](https://pnpm.io/) - Fast, disk space efficient package manager
-- **Language**: [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- **Development Language**: [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Requirements
 
 - Node.js 18+
 - pnpm (recommended) or npm
 
-### Installation
+### Installation Steps
 
-1. **Clone the repository**
+1. **Clone Repository**
 
    ```bash
-   git clone https://github.com/your-username/i18n-translator.git
+   git clone https://github.com/lezzhao/i18n-translator.git
    cd i18n-translator
    ```
 
-2. **Install dependencies**
+2. **Install Dependencies**
 
    ```bash
    pnpm install
@@ -54,7 +55,7 @@
    npm install
    ```
 
-3. **Start development server**
+3. **Start Development Server**
 
    ```bash
    pnpm dev
@@ -62,39 +63,48 @@
    npm run dev
    ```
 
-4. **Open your browser**
+4. **Open Browser**
    Navigate to `http://localhost:3333`
 
-### Build for Production
+### Production Build
 
 ```bash
 pnpm build
 pnpm preview
 ```
 
-## 📖 Usage
+## 📖 Usage Guide
 
-### 1. Language Selection
+### 1. Interface Features
 
-- Choose source language (original content)
-- Choose target language (translation target)
+- **Language Switching**: Click the flag icon in the top right to switch between Chinese and English interfaces
+- **Theme Switching**: Click the moon/sun icon to switch between light and dark themes
+- **GitHub Link**: Click the GitHub icon to view project source code
 
-### 2. File Upload
+### 2. Language Settings
 
-- Upload supported file types: `.js`, `.ts`, `.json`, `.yml`, `.yaml`
+- Select source language (original content)
+- Select target language (translation target)
+- Support for various language combinations
+
+### 3. File Upload
+
+- Supported file types: `.js`, `.ts`, `.json`, `.yml`, `.yaml`
+- Support drag and drop upload, automatically filter unsupported file types
 - Files are automatically processed and prepared for translation
 
-### 3. Translation Process
+### 4. Translation Process
 
-- View original content in the left column
-- Translated content appears in the right column
-- Both columns scroll synchronously for easy comparison
+- Left column displays original content
+- Right column displays translated content
+- Both columns scroll independently for easy comparison
 
-### 4. File Management
+### 5. File Management
 
 - View uploaded files in the file list
-- Access file content and translations
-- Download translated files in various formats
+- Access file content and translation results
+- Download translated files
+- Support file preview, deletion and other operations
 
 ## 🎯 Supported File Types
 
@@ -105,15 +115,28 @@ pnpm preview
 | JSON       | `.json`         | JSON configuration files |
 | YAML       | `.yml`, `.yaml` | YAML configuration files |
 
+## 🌙 Theme Features
+
+- **Light Mode**: Fresh and bright interface style
+- **Dark Mode**: Eye-friendly dark interface style
+- **Auto Follow**: Automatically follows system theme settings
+- **Smooth Transition**: Smooth transition animations when switching themes
+
+## 🌍 Internationalization Support
+
+- **Chinese Interface**: Default Chinese interface, suitable for Chinese users
+- **English Interface**: Complete English interface, supports international users
+- **One-click Switching**: Click icon to switch languages
+
 ## 📱 Browser Support
 
 - Chrome 138+
 
 ## 🤝 Contributing
 
-We welcome contributions! Please feel free to submit a Pull Request.
+We welcome contributions! Please feel free to submit Pull Requests.
 
-### Development Setup
+### Development Environment Setup
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -121,7 +144,7 @@ We welcome contributions! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-### Code Style
+### Code Standards
 
 - Follow Vue 3 Composition API best practices
 - Use TypeScript for type safety
@@ -130,8 +153,7 @@ We welcome contributions! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is licensed under the **MIT License with Non-Commercial Use Restriction** - see the [LICENSE](LICENSE) file for details.
-
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 **⚠️ Important**: Commercial use is strictly prohibited without explicit permission. This license allows free use for personal, educational, and non-profit purposes only.
 
 ## 🙏 Acknowledgments
@@ -144,6 +166,6 @@ This project is licensed under the **MIT License with Non-Commercial Use Restric
 
 If you have any questions or need help, please:
 
-- Open an [Issue](https://github.com/your-username/i18n-translator/issues)
-- Check the [Documentation](https://github.com/your-username/i18n-translator/wiki)
+- Open an [Issue](https://github.com/lezzhao/i18n-translator/issues)
+- Check the [Documentation](https://github.com/lezzhao/i18n-translator/wiki)
 - Contact the maintainers
