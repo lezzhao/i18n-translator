@@ -59,9 +59,9 @@ const triggerClasses = computed(() => {
     lg: 'px-4 py-2.5 text-base min-h-[48px]',
   }
 
-  const disabledClasses = props.disabled ? 'opacity-50 cursor-not-allowed bg-gray-50' : 'cursor-pointer'
+  const disabledClasses = props.disabled ? 'opacity-50 cursor-not-allowed bg-gray-50 dark:bg-gray-800' : 'cursor-pointer'
 
-  return `${baseClasses} ${sizeClasses[props.size]} border-gray-300 bg-white hover:border-gray-400 focus:border-blue-500 ${disabledClasses}`
+  return `${baseClasses} ${sizeClasses[props.size]} border-gray-300 bg-white hover:border-gray-400 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:focus:border-blue-400 ${disabledClasses}`
 })
 
 const labelClasses = computed(() => {
@@ -71,7 +71,7 @@ const labelClasses = computed(() => {
     lg: 'text-base',
   }
 
-  return `block font-medium text-gray-700 mb-2 ${sizeClasses[props.size]}`
+  return `block font-medium text-gray-700 dark:text-gray-200 mb-2 ${sizeClasses[props.size]}`
 })
 
 const languageSelectRef = ref<HTMLDivElement | null>(null)
@@ -102,10 +102,10 @@ onClickOutside(languageSelectRef, () => {
     >
       <!-- 显示选中的语言或占位符 -->
       <span class="text-left flex-1">
-        <span v-if="selectedLanguage" class="flex items-center">
+        <span v-if="selectedLanguage" class="text-gray-900 flex items-center dark:text-gray-100">
           {{ getLanguageDisplayName(selectedLanguage.code) }}
         </span>
-        <span v-else class="text-gray-400">
+        <span v-else class="text-gray-400 dark:text-gray-500">
           {{ placeholder }}
         </span>
       </span>
@@ -115,7 +115,7 @@ onClickOutside(languageSelectRef, () => {
         class="ml-2 transition-transform duration-200"
         :class="{ 'rotate-180': isOpen }"
       >
-        <div i-carbon-chevron-down text-sm text-gray-400 />
+        <div class="i-carbon-chevron-down text-sm text-gray-400 dark:text-gray-500" />
       </div>
     </div>
 
@@ -130,15 +130,15 @@ onClickOutside(languageSelectRef, () => {
     >
       <div
         v-if="isOpen"
-        class="mt-1 border border-gray-200 rounded-md bg-white max-h-60 w-full shadow-lg absolute z-50 overflow-hidden"
+        class="dropdown-menu"
       >
         <!-- 语言列表 -->
-        <div class="max-h-48 overflow-y-auto">
+        <div class="language-list">
           <div
             v-for="lang in languages"
             :key="lang.code"
-            class="px-3 py-2 cursor-pointer transition-colors duration-150 hover:bg-blue-50"
-            :class="{ 'bg-blue-100 text-blue-700': lang.code === modelValue }"
+            class="language-item"
+            :class="{ selected: lang.code === modelValue }"
             @click="handleSelect(lang.code)"
           >
             <div class="text-left flex items-center">
@@ -147,7 +147,7 @@ onClickOutside(languageSelectRef, () => {
                 <div class="font-medium">
                   {{ lang.name }}
                 </div>
-                <div v-if="lang.name !== lang.nativeName" class="text-xs text-gray-500">
+                <div v-if="lang.name !== lang.nativeName" class="text-xs text-gray-500 dark:text-gray-400">
                   {{ lang.nativeName }}
                 </div>
               </div>
@@ -161,30 +161,100 @@ onClickOutside(languageSelectRef, () => {
 
 <style scoped>
 .language-select {
-  @apply w-full;
+  width: 100%;
+}
+
+.dropdown-menu {
+  margin-top: 0.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  background: white;
+  max-height: 15rem;
+  width: 100%;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  z-index: 50;
+  overflow: hidden;
+}
+
+html.dark .dropdown-menu {
+  border-color: #4b5563;
+  background: #1f2937;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.language-list {
+  max-height: 12rem;
+  overflow-y: auto;
+}
+
+.language-item {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.language-item:hover {
+  background: #eff6ff;
+}
+
+html.dark .language-item:hover {
+  background: #1e3a8a;
+}
+
+.language-item.selected {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+html.dark .language-item.selected {
+  background: #1e3a8a;
+  color: #93c5fd;
 }
 
 /* 自定义滚动条样式 */
-.overflow-y-auto::-webkit-scrollbar {
+.language-list::-webkit-scrollbar {
   width: 6px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-track {
+.language-list::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 3px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb {
+.language-list::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 3px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+.language-list::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+html.dark .language-list::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+html.dark .language-list::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+html.dark .language-list::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }
 
 /* 焦点样式 */
 .language-select:focus-within .trigger {
-  @apply ring-2 ring-blue-500 border-blue-500;
+  box-shadow: 0 0 0 2px #3b82f6;
+  border-color: #3b82f6;
+}
+
+html.dark .language-select:focus-within .trigger {
+  box-shadow: 0 0 0 2px #60a5fa;
+  border-color: #60a5fa;
 }
 </style>

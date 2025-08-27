@@ -85,11 +85,11 @@ function handleUpload() {
         @change="handleFileSelect"
       >
       <button
-        class="text-white px-3 py-1.5 rounded-lg bg-blue-500 flex cursor-pointer transition-colors items-center hover:bg-blue-600"
-        :class="{ 'opacity-50 cursor-not-allowed': !translateStore.availability }"
+        class="upload-btn"
+        :class="{ disabled: !translateStore.availability }"
         @click="handleUpload"
       >
-        <div i-carbon-cloud-upload mr-2 inline-block />
+        <div class="i-carbon-cloud-upload mr-2 inline-block" />
         <span>选择文件</span>
       </button>
     </div>
@@ -97,25 +97,25 @@ function handleUpload() {
     <!-- 拖拽上传区域 -->
     <div
       v-show="!translateStore.fileList.length"
-      class="drag-area p-8 border-2 border-gray-300 rounded-lg border-dashed bg-gray-50 h-48 w-full transition-all duration-300"
-      :class="{ 'border-blue-500 bg-blue-50': translateStore.fileInfo.existDraggedFile }"
+      class="drag-area"
+      :class="{ dragging: translateStore.fileInfo.existDraggedFile }"
       @dragover="handleDragOver"
       @dragleave="handleDragLeave"
       @drop="handleDrop"
     >
       <!-- 拖拽上传区域内容 -->
-      <div class="text-center flex flex-col h-full items-center justify-center">
-        <div i-carbon-upload text-4xl text-gray-400 mb-4 />
-        <p class="text-lg text-gray-600 mb-2">
+      <div class="drag-content">
+        <div class="i-carbon-upload text-4xl text-gray-400 mb-4" />
+        <p class="drag-title">
           拖拽文件到此处
         </p>
-        <p class="text-sm text-gray-500 mb-4">
+        <p class="drag-subtitle">
           或点击上方按钮选择文件
         </p>
-        <div class="text-xs text-blue-600 font-medium mb-2">
+        <div class="file-types">
           支持的文件类型：.js, .ts, .json, .yml, .yaml
         </div>
-        <div class="text-xs text-red-500">
+        <div class="file-note">
           其他类型文件将被自动过滤
         </div>
       </div>
@@ -124,16 +124,124 @@ function handleUpload() {
 </template>
 
 <style scoped>
+.upload-btn {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.upload-btn:hover:not(.disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.upload-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #6b7280;
+}
+
+html.dark .upload-btn {
+  background: #60a5fa;
+}
+
+html.dark .upload-btn:hover:not(.disabled) {
+  background: #3b82f6;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
 .drag-area {
-  @apply cursor-pointer;
+  padding: 2rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 0.5rem;
+  background: #f9fafb;
+  height: 12rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+html.dark .drag-area {
+  border-color: #4b5563;
+  background: #1f2937;
 }
 
 .drag-area:hover {
-  @apply border-gray-400 bg-gray-100;
+  border-color: #9ca3af;
+  background: #f3f4f6;
 }
 
-/* 拖拽状态动画 */
-.drag-area.border-blue-500 {
-  @apply transform scale-105;
+html.dark .drag-area:hover {
+  border-color: #6b7280;
+  background: #374151;
+}
+
+.drag-area.dragging {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  transform: scale(1.02);
+}
+
+html.dark .drag-area.dragging {
+  border-color: #60a5fa;
+  background: #1e3a8a;
+}
+
+.drag-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.drag-title {
+  font-size: 1.125rem;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+html.dark .drag-title {
+  color: #f3f4f6;
+}
+
+.drag-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+html.dark .drag-subtitle {
+  color: #9ca3af;
+}
+
+.file-types {
+  font-size: 0.75rem;
+  color: #3b82f6;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+html.dark .file-types {
+  color: #60a5fa;
+}
+
+.file-note {
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
+html.dark .file-note {
+  color: #f87171;
 }
 </style>
