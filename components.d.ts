@@ -14,6 +14,7 @@ declare module 'vue' {
     FileUpload: typeof import('./src/components/FileUpload.vue')['default']
     FileUploadArea: typeof import('./src/components/FileUploadArea.vue')['default']
     LanguageSelect: typeof import('./src/components/LanguageSelect.vue')['default']
+    LanguageSwitcher: typeof import('./src/components/LanguageSwitcher.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheCounter: typeof import('./src/components/TheCounter.vue')['default']

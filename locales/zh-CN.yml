@@ -1,3 +1,57 @@
+page:
+  title: I18n 言翻译工具
+  header:
+    github: 查看项目源码
+    language: 多语言支持
+    theme:
+      light: 切换到亮色模式
+      dark: 切换到暗色模式
+      auto: 跟随系统主题
+
+theme:
+  light: 亮色模式
+  dark: 暗色模式
+  auto: 跟随系统
+  toggle:
+    light: 切换到亮色模式
+    dark: 切换到暗色模式
+    auto: 跟随系统主题
+
+language:
+  section:
+    title: 语言设置
+    source:
+      label: 原文语言
+      placeholder: 选择原文语言
+    target:
+      label: 目标语言
+      placeholder: 选择目标语言
+    current: 当前设置
+
+upload:
+  button: 选择文件
+  drag:
+    title: 拖拽文件到此处
+    subtitle: 或点击上方按钮选择文件
+    types: 支持的文件类型
+    note: 其他类型文件将被自动过滤
+
+file:
+  list:
+    title: 已上传的文件
+    empty: 暂无文件，请上传或拖拽文件到上方区域
+    actions:
+      view: 查看
+      collapse: 收起
+      download: 下载译文
+      remove: 移除
+    clear: 清空所有
+
+fileContent:
+  original: 原文
+  translated: 译文
+  copy: 点击复制
+
 button:
   about: 关于
   back: 返回
@@ -5,10 +59,7 @@ button:
   home: 首页
   toggle_dark: 切换深色模式
   toggle_langs: 切换语言
-intro:
-  desc: 固执己见的 Vite 项目模板
-  dynamic-route: 动态路由演示
-  hi: 你好，{name}
-  aka: 也叫
-  whats-your-name: 输入你的名字
-not-found: 未找到页面
+
+languageSwitch:
+  toEnglish: 切换到英文
+  toChinese: 切换到中文

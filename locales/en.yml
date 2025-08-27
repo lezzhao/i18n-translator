@@ -1,0 +1,58 @@
+page:
+  title: i18n language translation tool
+  header:
+    github: View project source code
+    language: multilingual support
+    theme:
+      light: Switch to bright color mode
+      dark: Switch to dark mode
+      auto: Follow the system theme
+theme:
+  light: bright mode
+  dark: dark mode
+  auto: follow system
+  toggle:
+    light: Switch to bright color mode
+    dark: Switch to dark mode
+    auto: Follow the system theme
+language:
+  section:
+    title: Language settings
+    source:
+      label: original language
+      placeholder: Choose the original language
+    target:
+      label: target language
+      placeholder: Choose a target language
+    current: current settings
+upload:
+  button: select file
+  drag:
+    title: Drag and drop files here
+    subtitle: Or click the button above to select the file
+    types: Supported file types
+    note: Other types of files will be automatically filtered
+file:
+  list:
+    title: uploaded files
+    empty: No file yet, please upload or drag the file to the upper area
+    actions:
+      view: Examine
+      collapse: Pack up
+      download: download translation
+      remove: Remove
+    clear: clear all
+fileContent:
+  original: Original
+  translated: translation
+  copy: Click to copy
+button:
+  about: On
+  back: Return
+  go: Determine
+  home: front page
+  toggle_dark: Switch dark mode
+  toggle_langs: switch language
+languageSwitch:
+  toEnglish: switch to english
+  toChinese: Switch to Chinese

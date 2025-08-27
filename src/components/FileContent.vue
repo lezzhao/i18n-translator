@@ -1,20 +1,22 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { formatFileSize } from '~/composables/file'
 import { useTranslateStore } from '~/stores/translate'
 
 const translateStore = useTranslateStore()
+const { t } = useI18n()
 
 // 获取文件类型标签样式
 function getFileTypeTag(fileName: string): { text: string, class: string } {
   if (fileName.endsWith('.js'))
-    return { text: 'JavaScript', class: 'bg-yellow-100 text-yellow-800' }
+    return { text: t('fileType.javascript'), class: 'bg-yellow-100 text-yellow-800' }
   if (fileName.endsWith('.ts'))
-    return { text: 'TypeScript', class: 'bg-blue-100 text-blue-800' }
+    return { text: t('fileType.typescript'), class: 'bg-blue-100 text-blue-800' }
   if (fileName.endsWith('.json'))
-    return { text: 'JSON', class: 'bg-green-100 text-green-800' }
+    return { text: t('fileType.json'), class: 'bg-green-100 text-green-800' }
   if (fileName.endsWith('.yml') || fileName.endsWith('.yaml'))
-    return { text: 'YAML', class: 'bg-purple-100 text-purple-800' }
-  return { text: 'Unknown', class: 'bg-gray-100 text-gray-800' }
+    return { text: t('fileType.yaml'), class: 'bg-purple-100 text-purple-800' }
+  return { text: t('fileType.unknown'), class: 'bg-gray-100 text-gray-800' }
 }
 </script>
 
@@ -49,7 +51,7 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
           <div class="original content-column">
             <div class="column-header">
               <h3 class="column-title">
-                原文
+                {{ t('fileContent.original') }}
               </h3>
             </div>
             <!-- 原文内容 -->
@@ -71,9 +73,9 @@ function getFileTypeTag(fileName: string): { text: string, class: string } {
           <div class="content-column translated">
             <div class="column-header">
               <h3 class="column-title">
-                译文
+                {{ t('fileContent.translated') }}
               </h3>
-              <div title="点击复制" class="copy-icon i-carbon-copy" />
+              <div :title="t('fileContent.copy')" class="copy-icon i-carbon-copy" />
             </div>
             <!-- 译文内容 -->
             <pre class="content-code">
@@ -210,11 +212,12 @@ html.dark .file-size-tag {
   grid-template-columns: 1fr 1fr;
   gap: 0;
   max-height: 24rem;
-  overflow: hidden;
 }
 
 .content-column {
   position: relative;
+  max-height: 24rem;
+  overflow-y: auto;
 }
 
 .content-column.original {
@@ -326,36 +329,35 @@ html.dark .empty-line {
 }
 
 /* 滚动条样式 */
-.content-grid::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+.content-column::-webkit-scrollbar {
+  width: 6px;
 }
 
-.content-grid::-webkit-scrollbar-track {
+.content-column::-webkit-scrollbar-track {
   background: #f8fafc;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
-.content-grid::-webkit-scrollbar-thumb {
+.content-column::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid #f8fafc;
 }
 
-.content-grid::-webkit-scrollbar-thumb:hover {
+.content-column::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
-html.dark .content-grid::-webkit-scrollbar-track {
+html.dark .content-column::-webkit-scrollbar-track {
   background: #374151;
 }
 
-html.dark .content-grid::-webkit-scrollbar-thumb {
+html.dark .content-column::-webkit-scrollbar-thumb {
   background: #6b7280;
   border-color: #374151;
 }
 
-html.dark .content-grid::-webkit-scrollbar-thumb:hover {
+html.dark .content-column::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
 </style>

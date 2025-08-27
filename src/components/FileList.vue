@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { FileItem } from '~/types'
+import { useI18n } from 'vue-i18n'
 import { downloadContentAsFile, formatFileSize, getFileIcon } from '~/composables/file'
 import { useTranslateStore } from '~/stores/translate'
 
 const translateStore = useTranslateStore()
+const { t } = useI18n()
 
 function isExpanded(id: string) {
   return translateStore.fileInfo.expandedFile.id === id
@@ -63,13 +65,13 @@ function download(fileItem: FileItem) {
     <div v-if="translateStore.fileList.length > 0" class="mt-6">
       <div class="mb-4 flex items-center justify-between">
         <h3 class="section-title">
-          已上传的文件 ({{ translateStore.fileList.length }})
+          {{ t('file.list.title') }} ({{ translateStore.fileList.length }})
         </h3>
         <button
           class="clear-btn"
           @click="translateStore.clearFiles"
         >
-          清空所有
+          {{ t('file.list.clear') }}
         </button>
       </div>
 
@@ -121,7 +123,7 @@ function download(fileItem: FileItem) {
                   >
                     <div class="i-carbon-chevron-down text-sm" />
                   </div>
-                  <span>{{ isExpanded(fileItem.id) ? '收起' : '查看' }}</span>
+                  <span>{{ isExpanded(fileItem.id) ? t('file.list.actions.collapse') : t('file.list.actions.view') }}</span>
                 </button>
                 <button
                   class="action-btn download-btn"
@@ -129,14 +131,14 @@ function download(fileItem: FileItem) {
                   @click="download(fileItem)"
                 >
                   <div class="i-carbon-download text-xs" />
-                  <span>下载译文</span>
+                  <span>{{ t('file.list.actions.download') }}</span>
                 </button>
                 <button
                   class="action-btn remove-btn"
                   @click="() => translateStore.removeFile(fileItem.id)"
                 >
                   <div class="i-carbon-trash-can text-xs" />
-                  <span>移除</span>
+                  <span>{{ t('file.list.actions.remove') }}</span>
                 </button>
               </div>
             </div>
@@ -173,7 +175,7 @@ function download(fileItem: FileItem) {
     <!-- 空状态提示 -->
     <div v-else class="empty-state">
       <div class="i-carbon-document text-2xl mr-2 inline-block" />
-      暂无文件，请上传或拖拽文件到上方区域
+      {{ t('file.list.empty') }}
     </div>
   </div>
 </template>

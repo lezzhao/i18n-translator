@@ -29,6 +29,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "catalog:dev",
     "@iconify-json/carbon": "catalog:build",
+    "@intlify/unplugin-vue-i18n": "catalog:",
     "@types/js-yaml": "catalog:",
     "@types/node": "catalog:dev",
     "@unocss/eslint-plugin": "catalog:dev",

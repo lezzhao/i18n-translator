@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { translateText } from '~/composables'
 import { getFileContent } from '~/composables/file'
 import { useTranslateStore } from '~/stores/translate'
@@ -7,6 +8,7 @@ import { useTranslateStore } from '~/stores/translate'
 const fileRef = ref<HTMLInputElement | null>(null)
 
 const translateStore = useTranslateStore()
+const { t } = useI18n()
 
 // 拖拽相关函数
 function handleDragOver(e: DragEvent) {
@@ -90,7 +92,7 @@ function handleUpload() {
         @click="handleUpload"
       >
         <div class="i-carbon-cloud-upload mr-2 inline-block" />
-        <span>选择文件</span>
+        <span>{{ t('upload.button') }}</span>
       </button>
     </div>
 
@@ -107,16 +109,16 @@ function handleUpload() {
       <div class="drag-content">
         <div class="i-carbon-upload text-4xl text-gray-400 mb-4" />
         <p class="drag-title">
-          拖拽文件到此处
+          {{ t('upload.drag.title') }}
         </p>
         <p class="drag-subtitle">
-          或点击上方按钮选择文件
+          {{ t('upload.drag.subtitle') }}
         </p>
         <div class="file-types">
-          支持的文件类型：.js, .ts, .json, .yml, .yaml
+          {{ t('upload.drag.types') }}
         </div>
         <div class="file-note">
-          其他类型文件将被自动过滤
+          {{ t('upload.drag.note') }}
         </div>
       </div>
     </div>

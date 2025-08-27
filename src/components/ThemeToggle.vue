@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { getCurrentTheme, setTheme } from '~/composables/dark'
 
 defineOptions({
   name: 'ThemeToggle',
 })
 
+const { t } = useI18n()
 const currentTheme = computed(() => getCurrentTheme())
 </script>
 
@@ -14,7 +16,7 @@ const currentTheme = computed(() => getCurrentTheme())
     <button
       class="theme-btn"
       :class="{ active: currentTheme === 'light' }"
-      title="亮色模式"
+      :title="t('theme.toggle.light')"
       @click="setTheme('light')"
     >
       <div class="i-carbon-sun text-lg" />
@@ -23,7 +25,7 @@ const currentTheme = computed(() => getCurrentTheme())
     <button
       class="theme-btn"
       :class="{ active: currentTheme === 'dark' }"
-      title="暗色模式"
+      :title="t('theme.toggle.dark')"
       @click="setTheme('dark')"
     >
       <div class="i-carbon-moon text-lg" />
@@ -32,7 +34,7 @@ const currentTheme = computed(() => getCurrentTheme())
     <button
       class="theme-btn"
       :class="{ active: currentTheme === 'auto' }"
-      title="跟随系统"
+      :title="t('theme.toggle.auto')"
       @click="setTheme('auto')"
     >
       <div class="i-carbon-monitor text-lg" />
